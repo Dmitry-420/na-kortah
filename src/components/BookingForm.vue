@@ -24,16 +24,16 @@ async function submit() {
   const formData = new FormData();
   formData.append("access_key", "0d1bec91-4850-44b3-b9c1-898fbcfd87cb");
   
-  // Web3Forms требует поле email для работы. Так как в форме его нет, 
-  // отправляем заглушку, а данные пользователя летят в кастомных полях.
+  // Заглушка для email, чтобы Web3Forms пропустил заявку
   formData.append("email", "no-reply@na-kortah.ru"); 
   formData.append("subject", "Новая заявка с сайта «На кортах»");
   
-  formData.append("Имя", form.value.name);
-  formData.append("Телефон", form.value.phone);
-  formData.append("Услуга", form.value.service || 'Не выбрана');
-  formData.append("Дата", form.value.date || 'Не указана');
-  formData.append("Комментарий", form.value.message);
+  // Используем английские ключи, чтобы в письме не было кракозябр
+  formData.append("Name", form.value.name);
+  formData.append("Phone", form.value.phone);
+  formData.append("Service", form.value.service || 'Не выбрана');
+  formData.append("Date", form.value.date || 'Не указана');
+  formData.append("Message", form.value.message);
 
   try {
     const response = await fetch("https://api.web3forms.com/submit", {
