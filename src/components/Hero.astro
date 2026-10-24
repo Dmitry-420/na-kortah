@@ -1,0 +1,49 @@
+﻿---
+const facts = [
+  { label: 'Рейтинг', value: '4,9', note: '89 оценок' },
+  { label: 'Часы работы', value: '08:00–22:00', note: 'каждый день' },
+  { label: 'Корты', value: '4', note: '2 падел + 2 теннис' },
+  { label: 'Аренда падела', value: '2 500 ₽', note: 'за час' },
+];
+---
+<section class="relative overflow-hidden border-b border-bone/10">
+  <div class="wrap grid items-center gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
+    <div>
+      <p class="eyebrow">Школа тенниса и падел-клуб · Краснодар</p>
+      <h1 class="mt-4 text-4xl font-bold leading-[1.06] sm:text-5xl lg:text-6xl">
+        На кортах — падел и большой теннис в одном месте
+      </h1>
+      <p class="mt-6 max-w-xl text-lg text-mist">
+        Теннисный корт «На кортах» — это место, где вы можете играть в большой теннис или
+        падел-теннис. Два падел-корта и два теннисных корта, тренеры, клубная лига и турниры.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#booking" class="btn btn-primary">Записаться на корт</a>
+        <a href="#services" class="btn btn-ghost">Услуги и цены</a>
+      </div>
+      <dl class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {facts.map((fact) => (
+          <div class="card p-4">
+            <dt class="text-[0.68rem] uppercase tracking-[0.18em] text-mist">{fact.label}</dt>
+            <dd class="mt-2 font-heading text-lg font-bold text-bone">{fact.value}</dd>
+            <dd class="mt-1 text-xs text-mist">{fact.note}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+    <div class="relative">
+      <img
+        src="/media/projects/12128/mfaekeVjD.jpg"
+        alt="Корт клуба «На кортах» на Венецианской улице в Краснодаре"
+        width="1280"
+        height="720"
+        loading="eager"
+        class="aspect-[4/3] w-full rounded-3xl object-cover"
+      />
+      <div class="absolute -bottom-5 left-5 rounded-2xl bg-lime px-5 py-3 text-night">
+        <p class="font-heading text-sm font-bold">Венецианская ул., 12/1</p>
+        <p class="mt-0.5 text-xs font-semibold opacity-80">Немецкая деревня, Краснодар</p>
+      </div>
+    </div>
+  </div>
+</section>

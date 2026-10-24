@@ -1,0 +1,36 @@
+﻿---
+const services = [
+  { title: 'Аренда падел-корта', text: 'Два падел-корта, бронь по часам. Приходите своей командой или записывайтесь на свободное время.', price: '2 500 ₽', unit: '1 час' },
+  { title: 'Тренировка по паделу', text: 'Индивидуальное занятие с тренером: техника, удары и игровая практика под ваши задачи.', price: '4 500 ₽', unit: '1 час' },
+  { title: 'Аренда теннисного корта', text: 'Два корта: искусственная трава и хард. Теннис в большом — для тех, кто привык к классике.', price: '1 800 ₽', unit: '1 час' },
+  { title: 'Тренировка по теннису', text: 'Персональная работа с тренером — и новичкам, и тем, кто уже играет всерьёз.', price: '3 800 ₽', unit: '1 час' },
+  { title: 'Клубная лига', text: 'Турнирные вечера и рейтинг игроков клуба: есть с кем сыграть и куда расти.' },
+  { title: 'Пробная встреча', text: 'Первая игра без страха: покажем корт, дадим ракетку и объясним правила.' },
+  { title: 'Прокат ракеток и мячей', text: 'Своей ракетки нет — выдадим инвентарь, чтобы начать играть сразу.' },
+  { title: 'Детские и подростковые группы', text: 'Регулярные занятия для юных игроков в группе — с акцентом на технику и любовь к игре.' },
+];
+---
+<section id="services" class="border-b border-bone/10">
+  <div class="wrap py-16 lg:py-24">
+    <p class="eyebrow">Услуги</p>
+    <h2 class="mt-3 max-w-2xl text-3xl font-bold sm:text-4xl">Что можно взять в клубе</h2>
+    <p class="mt-4 max-w-2xl text-mist">
+      От часовой аренды корта до персональной тренировки и клубных турниров. Всё, что отмечено
+      ценой, бронируется по часам.
+    </p>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {services.map((item) => (
+        <article class="card flex flex-col p-6">
+          <h3 class="font-heading text-lg font-bold leading-snug text-bone">{item.title}</h3>
+          <p class="mt-3 flex-1 text-sm leading-relaxed text-mist">{item.text}</p>
+          {item.price && (
+            <p class="mt-5 border-t border-bone/10 pt-4 font-heading text-xl font-bold text-lime">
+              {item.price}
+              <span class="ml-1 text-xs font-sans font-semibold text-mist">{item.unit}</span>
+            </p>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

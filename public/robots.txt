@@ -1,0 +1,3 @@
+﻿User-agent: *
+Allow: /
+Sitemap: https://na-kortah-9cw8wojl.bobr0.site/sitemap.xml

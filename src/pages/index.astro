@@ -1,0 +1,23 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Courts from '../components/Courts.astro';
+import Coaches from '../components/Coaches.astro';
+import Events from '../components/Events.astro';
+import BookingForm from '../components/BookingForm.vue';
+import Footer from '../components/Footer.astro';
+---
+<BaseLayout>
+  <Header />
+  <main>
+    <Hero />
+    <Services />
+    <Courts />
+    <Coaches />
+    <Events />
+    <BookingForm client:visible />
+  </main>
+  <Footer />
+</BaseLayout>

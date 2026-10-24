@@ -1,0 +1,48 @@
+﻿---
+const courts = [
+  { title: '2 падел-корта', text: 'Стеклянные стенки, искусственная трава. Аренда — 2 500 ₽ в час.', img: '/media/projects/12128/azhmpyVjE.webp', alt: 'Падел-корт клуба «На кортах»' },
+  { title: '2 теннисных корта', text: 'Искусственная трава и хард. Аренда — 1 800 ₽ в час.', img: '/media/projects/12128/oyuspyVjF.webp', alt: 'Теннисный корт клуба «На кортах»' },
+  { title: 'Растёт и в дождь', text: 'Игровые площадки под крышей — тренировки не переносятся из-за погоды.', img: '/media/projects/12128/nffnhyVjG.webp', alt: 'Крытые игровые площадки клуба «На кортах»' },
+];
+---
+<section id="courts" class="border-b border-bone/10 bg-graphite/25">
+  <div class="wrap py-16 lg:py-24">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="eyebrow">Корты</p>
+        <h2 class="mt-3 max-w-2xl text-3xl font-bold sm:text-4xl">Четыре корта в одном месте</h2>
+      </div>
+      <p class="max-w-sm text-sm text-mist">
+        Ежедневно с 08:00 до 22:00. Рейтинг клуба — 4,9 по 89 оценкам.
+      </p>
+    </div>
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
+      {courts.map((court) => (
+        <article class="card overflow-hidden">
+          <img src={court.img} alt={court.alt} width="800" height="600" loading="lazy" class="aspect-[4/3] w-full object-cover" />
+          <div class="p-6">
+            <h3 class="font-heading text-lg font-bold text-bone">{court.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-mist">{court.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class="mt-10 grid gap-4 sm:grid-cols-3">
+      <div class="card p-6">
+        <p class="font-heading text-sm font-bold text-lime">Адрес</p>
+        <p class="mt-2 text-sm text-mist">Краснодар, Венецианская ул., 12/1 — Немецкая деревня.</p>
+      </div>
+      <div class="card p-6">
+        <p class="font-heading text-sm font-bold text-lime">Часы работы</p>
+        <p class="mt-2 text-sm text-mist">Понедельник — воскресенье, 08:00–22:00.</p>
+      </div>
+      <div class="card p-6">
+        <p class="font-heading text-sm font-bold text-lime">Связь</p>
+        <p class="mt-2 text-sm text-mist">
+          <a href="tel:+79182757666" class="hover:text-lime">+7 (918) 275-76-66</a> · Telegram
+          <a href="https://t.me/na_kortah_krd" class="hover:text-lime">@na_kortah_krd</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

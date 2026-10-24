@@ -1,0 +1,36 @@
+﻿---
+const events = [
+  { title: 'Пивной турнир по паделу', tag: 'Формат Американо', text: '20 участников, два этапа и две группы по 10 игроков. На каждом корте разыгрывается 16 очков, пять лучших каждой группы идут дальше и борются за призовые места. Пиво и безалкогольное, начос, сосиски на гриле и дружеская атмосфера.' },
+  { title: 'Padel Party', tag: 'Командный турнир', text: 'Круговая система, категории B и C: сет до 4 геймов для сильнейших и до 6 — для остальных, решающий мяч при 40:40. DJ-сеты, кальяны между матчами, прохладительные напитки, алкоголь и фотосессия.' },
+  { title: 'Клубная лига «На кортах»', tag: 'Регулярно', text: 'Игроков клуба ждут турнирные вечера и рейтинг: есть с кем сыграть в падел, есть куда расти. Первые результаты — уже в игре.' },
+  { title: 'PADEL CAMP в Турции', tag: '23–30 октября · Nirvana Cosmopolitan 5★', text: 'Неделя у моря: две тренировки в день с профессиональными тренерами, турнир с призами и главным призом — сертификатом на путешествие, гала-ужин, мерч, фотосессия. Питание и проживание — all inclusive.', price: 'От 159 000 ₽ без перелёта, от 185 000 ₽ с перелётом', link: 'http://wa.me/79189393108' },
+];
+---
+<section id="events" class="border-b border-bone/10 bg-graphite/25">
+  <div class="wrap py-16 lg:py-24">
+    <p class="eyebrow">Турниры и движение</p>
+    <h2 class="mt-3 max-w-2xl text-3xl font-bold sm:text-4xl">Мы не просто сдаём корты</h2>
+    <p class="mt-4 max-w-2xl text-mist">
+      В клубе постоянно что-то происходит: турниры, вечеринки, выездные сборы и лига. Даты
+      ближайших событий — в Telegram.
+    </p>
+    <div class="mt-10 grid gap-4 md:grid-cols-2">
+      {events.map((event) => (
+        <article class="card flex flex-col p-7">
+          <p class="eyebrow">{event.tag}</p>
+          <h3 class="mt-3 font-heading text-xl font-bold text-bone">{event.title}</h3>
+          <p class="mt-3 flex-1 text-sm leading-relaxed text-mist">{event.text}</p>
+          {event.price && <p class="mt-5 text-sm font-bold text-lime">{event.price}</p>}
+          <div class="mt-6 flex flex-wrap gap-3">
+            {event.link && (
+              <a href={event.link} class="btn btn-primary px-5 py-2.5 text-sm">Записаться на camp</a>
+            )}
+            <a href="https://t.me/na_kortah_krd" class="btn btn-ghost px-5 py-2.5 text-sm">
+              Даты и запись
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,39 @@
+﻿---
+const coaches = [
+  { name: 'Семён Шерозия', role: 'Игрок и тренер по паделу', facts: ['4 года стажа в паделе', 'Тренировался у экс-15-й ракетки мира Клаудио Бобадилья', 'Участник рейтинговых турниров в России', 'Постоянно обучается у ведущих российских тренеров'] },
+  { name: 'Александра Молокова', role: 'Старший тренер школы «На кортах»', facts: ['В теннисе 18 лет, 7 лет тренерской практики', 'Член сборной Республики Крым', 'Участница Кубка России по паделу и чемпионата РФ по теннису', 'Победительница региональных и всероссийских турниров'] },
+];
+---
+<section id="coaches" class="border-b border-bone/10">
+  <div class="wrap py-16 lg:py-24">
+    <p class="eyebrow">Тренеры</p>
+    <h2 class="mt-3 max-w-2xl text-3xl font-bold sm:text-4xl">С вами играют и учат мастера</h2>
+    <p class="mt-4 max-w-2xl text-mist">
+      Оба тренера совмещают игру и преподавание: на корте они с рейтингом, на занятиях — с
+      разбором ваших ошибок.
+    </p>
+    <div class="mt-10 grid gap-4 md:grid-cols-2">
+      {coaches.map((coach) => (
+        <article class="card p-7">
+          <div class="flex items-center gap-4">
+            <span class="grid h-14 w-14 place-items-center rounded-2xl bg-lime font-heading text-lg font-bold text-night" aria-hidden="true">
+              {coach.name.split(' ').map((part) => part[0]).join('')}
+            </span>
+            <div>
+              <h3 class="font-heading text-lg font-bold text-bone">{coach.name}</h3>
+              <p class="text-sm text-mist">{coach.role}</p>
+            </div>
+          </div>
+          <ul class="mt-6 space-y-2.5">
+            {coach.facts.map((fact) => (
+              <li class="flex gap-3 text-sm leading-relaxed text-mist">
+                <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lime" aria-hidden="true"></span>
+                {fact}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,61 @@
+﻿---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+const canonical = 'https://na-kortah-9cw8wojl.bobr0.site/';
+const title = 'На кортах — падел-клуб и школа тенниса в Краснодаре';
+const description =
+  'Падел-клуб «На кортах» в Краснодаре: 2 падел- и 2 теннисных корта, аренда от 1800 ₽ в час, тренировки с тренерами, клубная лига и турниры.';
+const ogImage = '/media/projects/12128/mfaekeVjD.jpg';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsActivityLocation',
+  name: 'На кортах',
+  description,
+  url: canonical,
+  telephone: '+7 (918) 275-76-66',
+  image: ogImage,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Венецианская ул., 12/1',
+    addressLocality: 'Краснодар',
+    addressCountry: 'RU',
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+      opens: '08:00',
+      closes: '22:00',
+    },
+  ],
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '89' },
+  sameAs: ['https://t.me/na_kortah_krd'],
+};
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="На кортах" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <ClientRouter />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
