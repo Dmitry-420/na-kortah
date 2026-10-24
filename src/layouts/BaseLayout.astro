@@ -1,11 +1,12 @@
-﻿---
+---
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
-const canonical = 'https://na-kortah-9cw8wojl.bobr0.site/';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonical = 'https://dmitry-420.github.io/na-kortah/';
 const title = 'На кортах — падел-клуб и школа тенниса в Краснодаре';
 const description =
   'Падел-клуб «На кортах» в Краснодаре: 2 падел- и 2 теннисных корта, аренда от 1800 ₽ в час, тренировки с тренерами, клубная лига и турниры.';
-const ogImage = '/media/projects/12128/mfaekeVjD.jpg';
+const ogImage = `${base}/media/projects/12128/mfaekeVjD.jpg`;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SportsActivityLocation',
@@ -40,7 +41,7 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:site_name" content="На кортах" />

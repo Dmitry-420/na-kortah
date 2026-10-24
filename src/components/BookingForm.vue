@@ -1,7 +1,7 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 import { ref } from 'vue';
 const form = ref({ name: '', phone: '', service: '', date: '', message: '' });
-const status = ref<'idle' | 'sending' | 'ok' | 'error'>('idle');
+const status = ref<'idle' | 'ok' | 'error'>('idle');
 const errorText = ref('');
 const services = [
   'Аренда падел-корта',
@@ -14,32 +14,31 @@ const services = [
   'Детские и подростковые группы',
   'Другое',
 ];
-async function submit() {
-  status.value = 'sending';
+function submit() {
   errorText.value = '';
-  try {
-    const response = await fetch('/__forms', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        formKey: 'booking',
-        schemaRef: 'v1_7f85b5bcea06',
-        payload: {
-          name: form.value.name,
-          phone: form.value.phone,
-          service: form.value.service,
-          date: form.value.date,
-          message: form.value.message,
-        },
-      }),
-    });
-    if (!response.ok) throw new Error('request failed');
-    status.value = 'ok';
-    form.value = { name: '', phone: '', service: '', date: '', message: '' };
-  } catch {
+  if (!form.value.name.trim() || form.value.name.trim().length < 2) {
     status.value = 'error';
-    errorText.value = 'Не удалось отправить заявку. Позвоните нам: +7 (918) 275-76-66';
+    errorText.value = 'Укажите имя (минимум 2 символа).';
+    return;
   }
+  if (!form.value.phone.trim()) {
+    status.value = 'error';
+    errorText.value = 'Укажите телефон для связи.';
+    return;
+  }
+  const lines = [
+    'Заявка с сайта «На кортах»',
+    `Имя: ${form.value.name.trim()}`,
+    `Телефон: ${form.value.phone.trim()}`,
+    form.value.service ? `Услуга: ${form.value.service}` : '',
+    form.value.date ? `Дата: ${form.value.date}` : '',
+    form.value.message.trim() ? `Комментарий: ${form.value.message.trim()}` : '',
+  ].filter(Boolean);
+  const text = encodeURIComponent(lines.join('\n'));
+  const url = `https://t.me/na_kortah_krd?text=${text}`;
+  window.open(url, '_blank', 'noopener');
+  status.value = 'ok';
+  form.value = { name: '', phone: '', service: '', date: '', message: '' };
 }
 </script>
 <template>
@@ -84,11 +83,11 @@ async function submit() {
           Комментарий
           <textarea v-model="form.message" rows="4" maxlength="1000" placeholder="Время, корт, количество игроков" class="mt-2 w-full rounded-xl border border-bone/15 bg-night/60 px-4 py-3 text-bone outline-none focus:border-lime"></textarea>
         </label>
-        <button type="submit" class="btn btn-primary mt-6 w-full" :disabled="status === 'sending'">
-          {{ status === 'sending' ? 'Отправляем…' : 'Отправить заявку' }}
+        <button type="submit" class="btn btn-primary mt-6 w-full">
+          Отправить заявку в Telegram
         </button>
         <p v-if="status === 'ok'" class="mt-4 rounded-xl bg-lime/10 px-4 py-3 text-sm text-lime">
-          Заявка отправлена. Мы перезвоним и подтвердим запись.
+          Открыли Telegram с готовым текстом заявки — отправьте сообщение, и мы свяжемся.
         </p>
         <p v-if="status === 'error'" class="mt-4 rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-300">
           {{ errorText }}

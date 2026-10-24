@@ -1,8 +1,9 @@
-﻿---
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const courts = [
-  { title: '2 падел-корта', text: 'Стеклянные стенки, искусственная трава. Аренда — 2 500 ₽ в час.', img: '/media/projects/12128/azhmpyVjE.webp', alt: 'Падел-корт клуба «На кортах»' },
-  { title: '2 теннисных корта', text: 'Искусственная трава и хард. Аренда — 1 800 ₽ в час.', img: '/media/projects/12128/oyuspyVjF.webp', alt: 'Теннисный корт клуба «На кортах»' },
-  { title: 'Растёт и в дождь', text: 'Игровые площадки под крышей — тренировки не переносятся из-за погоды.', img: '/media/projects/12128/nffnhyVjG.webp', alt: 'Крытые игровые площадки клуба «На кортах»' },
+  { title: '2 падел-корта', text: 'Стеклянные стенки, искусственная трава. Аренда — 2 500 ₽ в час.', img: `${base}/media/projects/12128/azhmpyVjE.webp`, alt: 'Падел-корт клуба «На кортах»' },
+  { title: '2 теннисных корта', text: 'Искусственная трава и хард. Аренда — 1 800 ₽ в час.', img: `${base}/media/projects/12128/oyuspyVjF.webp`, alt: 'Теннисный корт клуба «На кортах»' },
+  { title: 'Растёт и в дождь', text: 'Игровые площадки под крышей — тренировки не переносятся из-за погоды.', img: `${base}/media/projects/12128/nffnhyVjG.webp`, alt: 'Крытые игровые площадки клуба «На кортах»' },
 ];
 ---
 <section id="courts" class="border-b border-bone/10 bg-graphite/25">
