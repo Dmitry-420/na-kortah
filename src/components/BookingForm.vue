@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+
 const form = ref({ name: '', phone: '', service: '', date: '', message: '' });
-const status = ref<'idle' | 'ok' | 'error'>('idle');
+const status = ref<'idle' | 'sending' | 'ok' | 'error'>('idle');
 const errorText = ref('');
+
 const services = [
   'Аренда падел-корта',
   'Индивидуальная тренировка по паделу',
@@ -14,33 +16,46 @@ const services = [
   'Детские и подростковые группы',
   'Другое',
 ];
-function submit() {
+
+async function submit() {
+  status.value = 'sending';
   errorText.value = '';
-  if (!form.value.name.trim() || form.value.name.trim().length < 2) {
+
+  const formData = new FormData();
+  formData.append("access_key", "0d1bec91-4850-44b3-b9c1-898fbcfd87cb");
+  
+  // Web3Forms требует поле email для работы. Так как в форме его нет, 
+  // отправляем заглушку, а данные пользователя летят в кастомных полях.
+  formData.append("email", "no-reply@na-kortah.ru"); 
+  formData.append("subject", "Новая заявка с сайта «На кортах»");
+  
+  formData.append("Имя", form.value.name);
+  formData.append("Телефон", form.value.phone);
+  formData.append("Услуга", form.value.service || 'Не выбрана');
+  formData.append("Дата", form.value.date || 'Не указана');
+  formData.append("Комментарий", form.value.message);
+
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      status.value = 'ok';
+      form.value = { name: '', phone: '', service: '', date: '', message: '' };
+    } else {
+      throw new Error(data.message || 'Ошибка отправки');
+    }
+  } catch (err: any) {
     status.value = 'error';
-    errorText.value = 'Укажите имя (минимум 2 символа).';
-    return;
+    errorText.value = err.message || 'Не удалось отправить заявку. Позвоните нам: +7 (918) 275-76-66';
   }
-  if (!form.value.phone.trim()) {
-    status.value = 'error';
-    errorText.value = 'Укажите телефон для связи.';
-    return;
-  }
-  const lines = [
-    'Заявка с сайта «На кортах»',
-    `Имя: ${form.value.name.trim()}`,
-    `Телефон: ${form.value.phone.trim()}`,
-    form.value.service ? `Услуга: ${form.value.service}` : '',
-    form.value.date ? `Дата: ${form.value.date}` : '',
-    form.value.message.trim() ? `Комментарий: ${form.value.message.trim()}` : '',
-  ].filter(Boolean);
-  const text = encodeURIComponent(lines.join('\n'));
-  const url = `https://t.me/na_kortah_krd?text=${text}`;
-  window.open(url, '_blank', 'noopener');
-  status.value = 'ok';
-  form.value = { name: '', phone: '', service: '', date: '', message: '' };
 }
 </script>
+
 <template>
   <section id="booking" class="border-b border-bone/10">
     <div class="wrap grid gap-10 py-16 lg:grid-cols-[0.85fr_1.15fr] lg:py-24">
@@ -57,7 +72,7 @@ function submit() {
           <li class="text-mist">Краснодар, Венецианская ул., 12/1</li>
         </ul>
       </div>
-      <form class="card p-6 sm:p-8" novalidate @submit.prevent="submit">
+      <form class="card p-6 sm:p-8" @submit.prevent="submit">
         <div class="grid gap-4 sm:grid-cols-2">
           <label class="block text-sm font-semibold">
             Имя
@@ -83,11 +98,11 @@ function submit() {
           Комментарий
           <textarea v-model="form.message" rows="4" maxlength="1000" placeholder="Время, корт, количество игроков" class="mt-2 w-full rounded-xl border border-bone/15 bg-night/60 px-4 py-3 text-bone outline-none focus:border-lime"></textarea>
         </label>
-        <button type="submit" class="btn btn-primary mt-6 w-full">
-          Отправить заявку в Telegram
+        <button type="submit" class="btn btn-primary mt-6 w-full" :disabled="status === 'sending'">
+          {{ status === 'sending' ? 'Отправляем…' : 'Отправить заявку' }}
         </button>
         <p v-if="status === 'ok'" class="mt-4 rounded-xl bg-lime/10 px-4 py-3 text-sm text-lime">
-          Открыли Telegram с готовым текстом заявки — отправьте сообщение, и мы свяжемся.
+          Заявка отправлена! Администратор перезвонит и подтвердит запись.
         </p>
         <p v-if="status === 'error'" class="mt-4 rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-300">
           {{ errorText }}
